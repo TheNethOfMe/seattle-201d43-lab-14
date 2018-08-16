@@ -12,7 +12,17 @@ Cart.prototype.addItem = function(product, quantity) {
   if (!Cart.items) {
     Cart.items = [];
   }
-  Cart.items.push(itemToAdd);
+  var indexToIncrement = -1;
+  Cart.items.find(function(cartItem, i) {
+    if (cartItem.product === product) {
+      indexToIncrement = i;
+    }
+  });
+  if (indexToIncrement >= 0) {
+    Cart.items[indexToIncrement].quantity += parseInt(quantity);
+  } else {
+    Cart.items.push(itemToAdd);
+  }
 };
 
 Cart.prototype.saveToLocalStorage = function() {
