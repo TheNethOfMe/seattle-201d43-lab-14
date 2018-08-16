@@ -23,23 +23,17 @@ Cart.prototype.addItem = function(product, quantity) {
   } else {
     Cart.items.push(itemToAdd);
   }
+  Cart.prototype.saveToLocalStorage();
 };
 
 Cart.prototype.saveToLocalStorage = function() {
   // TODO: Fill in this instance method to save the contents of the cart to localStorage
-  localStorage.setItem('cartContents', JSON.stringify(Cart.items));
+  localStorage.setItem('cart', JSON.stringify(Cart.items));
 };
 
-Cart.prototype.removeItem = function(item) {
-  // TODO: Fill in this instance method to remove one item from the cart.
-  // Note: You will have to decide what kind of parameter to pass in here!
-  var indexToRemove;
-  Cart.items.find(function(cartItem, i) {
-    if (cartItem.product === item) {
-      indexToRemove = i;
-    }
-  });
-  Cart.items.splice(indexToRemove, 1);
+Cart.prototype.removeItem = function(index,shoppingCart) {
+  shoppingCart.items.splice(index, 1);
+  localStorage.setItem('cart', JSON.stringify(shoppingCart.items));
 };
 
 var CartItem = function(product, quantity) {
